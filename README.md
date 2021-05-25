@@ -22,6 +22,10 @@ You can also supply the starting frame and amount of frames with the arguments "
 
 
 # Known Issue:
-	If your path for `-dir` ends with a backslash and quotes `\"`, the program cannot run. Just remove the ending backslash.
 
+If your path for `-dir` ends with a backslash and quotes `\"`, the program cannot run. Just remove the ending backslash.
+
+	
+# Stay tuned
+	
 I'm planning on updating this repo and making more in depth tutorials for machine learning projects soon!
