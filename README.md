@@ -1,9 +1,12 @@
 # MLAnimation
  Repo for storing the files I use to make animations with lucidrains's BigSleep and DeepDaze projects.
+ 
  `MLAnimator.py` sorts the output folder of BigSleep or DeepDaze and using FFMPEG can animate the results easily.
 
  BigSleep: https://github.com/lucidrains/big-sleep
+ 
  DeepDaze: https://github.com/lucidrains/deep-daze
+ 
  FFMPEG: https://www.ffmpeg.org/
 
  CoLab Notebook: https://colab.research.google.com/drive/12EU4iVue3I91Pfqo5hc0-gXOtc81e3kK?usp=sharing
