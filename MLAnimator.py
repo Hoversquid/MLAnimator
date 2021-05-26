@@ -15,7 +15,6 @@ import subprocess
 
 image_file_types = ['png', 'jpg']
 
-
 def process_files(dir, framerate, starting_frame, frames, filetype, animate, reverse, mirror_list, info):
     animator_output_path = path.join(getcwd(), "AnimatorOutput")
 
