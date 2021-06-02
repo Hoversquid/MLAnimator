@@ -208,19 +208,16 @@ class MLAnimator:
                    str(framerate), '-f', 'concat', '-safe', "0", '-i', listpath, outpath]
         subprocess.call(cmdargs)
 
-
     def get_filename(self, filename):
         namestr = filename.split(".")
         if namestr[len(namestr) - 2].isnumeric():
             return "".join(namestr[:-2])
         return None
 
-
     def get_file_num(self, f, lastnum):
         namestr = f.split(".")
         if namestr[-2].isnumeric():
             return int(namestr[-2])
-
 
     def get_frame_input(self, amt, max):
         if amt.strip() == "":
@@ -231,14 +228,12 @@ class MLAnimator:
 
         return starting_frame
 
-
     def sort_unsorted_image(self, dir, f, sortedname):
         sortedpath = path.join(dir, sortedname)
         unsortedfile = path.join(dir, f)
         if not path.exists(sortedpath):
             mkdir(sortedpath)
         rename(unsortedfile, path.join(sortedpath, f))
-
 
     def set_valid_filename(self, filepath, basename, filetype, i):
         if i > 0:
@@ -253,7 +248,6 @@ class MLAnimator:
 
         return filename
 
-
     def confirm_file_changes(self, outpath):
         if isfile(outpath):
             confirmed = input(
@@ -266,10 +260,8 @@ class MLAnimator:
         # Safe to write file
         return True
 
-
     def confirm_files(self, dir):
         return [f.name for f in scandir(dir) if isfile(join(dir, f.name)) and f.name.split(".")[-1] in image_file_types]
-
 
     def move_misc_image(self, dir, filename):
         print("\nMoving misc image", filename)
@@ -278,7 +270,6 @@ class MLAnimator:
         if not path.exists(unsorteddir):
             mkdir(unsorteddir)
         rename(oldpath, path.join(unsorteddir, filename))
-
 
     def escape_str(self, a_str):
         return a_str.replace("\\", "\\\\").replace("\'", r"\'")
