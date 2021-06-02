@@ -1,4 +1,4 @@
-set_info# Sorts images made from BigSleep and DeepDaze into folders, and creates an animation from the files
+# Sorts images made from BigSleep and DeepDaze into folders, and creates an animation from the files
 # Animation outputs to current directory
 # Animation frames can be selected in various ways:
 # Using --frames (-f <number>), frames are selected from the most recent iterations. Including a starting_frame will select the most recent frames starting with the number of the selected frame.
@@ -404,4 +404,4 @@ if __name__ == "__main__":
     parser.add_argument("-nm", "--no_mirror", action="store_true", help="turn off appending mirrored animation")
     parser.add_argument("-i", "--info", action="store_true", help="add frame info to filename")
     args = parser.parse_args()
-    process_files(args.dir, int(args.framerate), args.starting_frame, args.frames, args.filetype, not args.dont_animate, args.reverse, not args.no_mirror, args.info)
+    MLAnimator(args.dir, int(args.framerate), args.starting_frame, args.frames, args.filetype, not args.dont_animate, args.reverse, not args.no_mirror, args.info)
