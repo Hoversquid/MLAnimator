@@ -183,7 +183,7 @@ class MLAnimator:
         outpath = self.set_valid_filename(diroutpath, filename, filetype, 0)
 
         starting_frame = self.starting_frame - 1
-        end_frame = self.frames + starting_frame - 1
+        end_frame = self.frames + starting_frame
         file_list = files[starting_frame:end_frame]
         if reverse:
             file_list = [ele for ele in reversed(file_list)]
@@ -201,7 +201,7 @@ class MLAnimator:
         listpath = self.escape_str(path.join(dirpath, "filelisttoanimation.txt"))
 
         print("Animating: %s\nStarting frame %d\nEnd Frame: %d\nFile List Length: %d\n\nSaving file to %s" % (
-            self.name, self.starting_frame, self.starting_frame + self.frames - 1, self.length, outpath))
+            self.name, self.starting_frame, self.starting_frame + self.frames, self.length, outpath))
         outpath = self.escape_str(outpath)
 
         cmdargs = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-r',
