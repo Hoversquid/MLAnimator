@@ -125,7 +125,7 @@ class MLAnimator:
                 if checkedname != None and checkedname == dirname and f.name.split('.')[-1] in image_file_types:
                     files.append(path.join(dirpath, f.name))
 
-        files = sorted(files, key=lambda f: get_file_num(f, len(files)))
+        files = sorted(files, key=lambda f: self.get_file_num(f, len(files)))
 
         # this is to fix file paths that include Windows styled paths and apostrophes
         files = [self.escape_str(f) for f in files]
