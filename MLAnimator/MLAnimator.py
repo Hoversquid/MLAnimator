@@ -79,7 +79,7 @@ class MLAnimator:
                         if not path.exists(diroutpath):
                             print("Creating sorted folder for " + str(diroutpath))
                             mkdir(diroutpath)
-                        self.create_animation_file(dir, get_filename(
+                        self.create_animation_file(dir, self.get_filename(
                             files[0]), framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutpath, info)
                         return
                 if not sorted_folder:
@@ -121,7 +121,7 @@ class MLAnimator:
 
         for f in scandir(dirpath):
             if isfile(f.path):
-                checkedname = get_filename(f.name)
+                checkedname = self.get_filename(f.name)
                 if checkedname != None and checkedname == dirname and f.name.split('.')[-1] in image_file_types:
                     files.append(path.join(dirpath, f.name))
 
