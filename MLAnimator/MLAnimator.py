@@ -9,9 +9,9 @@
 
 from os import listdir, mkdir, path, rename, scandir, getcwd
 from os.path import isfile, join
-import argparse
 import sys
 import subprocess
+import argparse
 
 image_file_types = ['png', 'jpg']
 
