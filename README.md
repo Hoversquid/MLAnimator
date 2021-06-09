@@ -10,7 +10,7 @@ deep-daze + MLAnimator:   [![DeepDaze + MLAnimator CoLab Link](https://camo.gith
 
 big-sleep + MLAnimator:    [![BigSleep + MLAnimator CoLab Link](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/1oDYS2vJcuYfsqlqQvYkBf5lxxj6CKRvC?usp=sharing)
 
-VQGAN + CLIP + MLAnimator: [![VQGAN + CLIP + MLAnimator CoLab Link](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/1kL3BI0cGubaLnKxi5YVvIAvppd8Pp_-R?usp=sharing)
+VQGAN + CLIP + MLAnimator: [![VQGAN + CLIP + MLAnimator CoLab Link](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/1ISGQEjl5-M7CDtngQE13D-IkGEjqKUCv?usp=sharing)
 
 MLAnimator:     [![MLAnimator CoLab Link](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/1wS7SgGWqEYG0r9tXcJS3QRSntz5yBmbV?usp=sharing)
 
