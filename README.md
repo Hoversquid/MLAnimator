@@ -35,7 +35,7 @@ You can use the argument `-m` to mirror the animation, making a seemless loop bu
 
 Using the argument `-ft <filetype>` will let you set the animation to a `gif` or `mp4`.
 
-`MLAnimator.py` is also in the CoLab notebook, but you may want to make a zipped copy of your files before animating in case your runtime limit is hit.
+`MLAnimator.py` is also in the CoLab notebook, but you may want to output your renders to Google Drive to save your images in case your runtime limit is hit. 
 
 
 # Known Issue:
