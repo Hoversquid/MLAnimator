@@ -16,39 +16,45 @@ import argparse
 image_file_types = ['png', 'jpg']
 
 class MLAnimator:
-    def __init__(self, dir, framerate, starting_frame, frames, filetype, animate, reverse, mirror_list, info):
+    def __init__(self, dir, framerate, starting_frame, frames, filetype, animate, reverse, mirror_list, info, all):
         animator_output_path = path.join(getcwd(), "AnimatorOutput")
 
         if framerate < 1:
             print("Invalid framerate.")
             return
 
-        if not path.exists(animator_output_path):
-            print("Creating main output folder at " + str(animator_output_path))
-            mkdir(animator_output_path)
-
-        if starting_frame:
-            if not starting_frame.isnumeric():
-                print("Invalid starting frame selection.")
-                return
-            starting_frame = int(starting_frame)
-            if starting_frame < 1:
-                starting_frame = 1
-
-        if frames:
-            if not frames.isnumeric() or int(frames) < 1:
-                print("Invalid frame selection.")
-                return
-            frames = int(frames)
-
         # Get all directories to check if they are sorted image folders
         dirs = [f for f in scandir(dir) if f.is_dir() and f.name != "Unsorted_Files"]
 
         # get list of files in the selected directory if they are a compatible file type
         files = self.confirm_files(dir)
+
+        if not path.exists(animator_output_path):
+            print("Creating main output folder at " + str(animator_output_path))
+            mkdir(animator_output_path)
+
+        self.animator_output_path = animator_output_path
+
+        if not all:
+            if starting_frame:
+                if not starting_frame.isnumeric():
+                    print("Invalid starting frame selection.")
+                    return
+                starting_frame = int(starting_frame)
+                if starting_frame < 1:
+                    starting_frame = 1
+
+            if frames:
+                if not frames.isnumeric() or int(frames) < 1:
+                    print("Invalid frame selection.")
+                    return
+                frames = int(frames)
+
         sorted_folder = True
 
+        # if there are files, then check to see if this is a sorted frame folder
         if len(files) > 0:
+            # if there are no directories, check to see if the pictures are in numbered order
             if len(dirs) == 0:
                 lastname = None
                 for f in files:
@@ -61,70 +67,60 @@ class MLAnimator:
                         lastname = checkedname
 
                     if not checkedname:
-                        self.move_misc_image(dir, f)
+                        # self.move_misc_image(dir, f)
                         sorted_folder = False
                         break
 
             else: sorted_folder = False
-
             # If this is the sorted folder, do not sort again. Produces an animation file in its base directory's output folder
-            files = self.confirm_files(dir)
-            if len(files) > 0:
-                if sorted_folder:
-                    if animate:
-                        try:
-                            diroutname = path.basename(path.dirname(
-                                path.dirname(dir))) + "_" + filetype + "_output"
-                            diroutpath = path.join(animator_output_path, diroutname)
-                            if not path.exists(diroutpath):
-                                print("Creating sorted folder for " + str(diroutpath))
-                                mkdir(diroutpath)
-                            self.create_animation_file(dir, self.get_filename(
-                                files[0]), framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutpath, info)
-                        except:
-                            print("An error has occured while animating.")
-                            return
-                        print("Animation file completed.")
-                        return
-                if not sorted_folder:
-                    for f in files:
-                        # if filename is valid
-                        filename = self.get_filename(f)
-                        if filename:
-                            self.sort_unsorted_image(dir, f, filename)
-                        # if get_filename returns None, the file will be sorted with the other misc images
-                        else:
-                            self.move_misc_image(dir, f)
+            if sorted_folder:
+                if animate:
+                    diroutname = path.basename(path.dirname(
+                        path.dirname(dir))) + "_" + filetype + "_output"
+                    self.create_animation_file(dir, self.get_filename(
+                        files[0]), framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all)
+                    print("Animation file completed.")
+                    return
+            if not sorted_folder:
+                for f in files:
+                    # if filename is valid
+                    filename = self.get_filename(f)
+                    if filename:
+                        self.sort_unsorted_image(dir, f, filename)
+                    # if get_filename returns None, the file will be sorted with the other misc images
+                    else:
+                        print(f"Sorting misc image {f}")
+                        self.move_misc_image(dir, f)
 
         if not animate:
             print("Files are in sorted folders.")
             return
 
         # Produces a folder of animation files in the main output directory.
-        diroutname = path.basename(dir) + "_" + filetype + "_output"
         dirs = [f for f in scandir(dir) if f.is_dir() and f.name != "Unsorted_Files"]
-        try:
-            if len(dirs) > 0:
-                diroutpath = path.join(animator_output_path, diroutname)
-                if not path.isdir(diroutpath):
-                    mkdir(diroutpath)
-                for d in dirs:
-                    filelist_test = [f.name for f in scandir(d) if isfile(
-                        join(d, f.name)) and f.name.split(".")[-1] in image_file_types]
+        # try:
+        if len(dirs) > 0:
+            basename = path.basename(dir)
+            if basename == "":
+                dir = path.basename(getcwd())
+            diroutname = path.basename(dir) + "_" + filetype + "_output"
+            for d in dirs:
+                files = [f.name for f in scandir(d) if isfile(
+                    join(d, f.name)) and f.name.split(".")[-1] in image_file_types]
+                # Creates animation file if directory's contents are numbered frames.
+                if len(files) > 2:
+                    self.create_animation_file(d.path, d.name, framerate, frames, filetype,
+                                          starting_frame, mirror_list, reverse, diroutname, info, all)
+                    print("Animation file completed.")
+                    continue
 
-                    # Creates animation file if directory's contents are numbered frames.
-                    if len(filelist_test) > 2:
-                        self.create_animation_file(d.path, d.name, framerate, frames, filetype,
-                                              starting_frame, mirror_list, reverse, diroutpath, info)
-                        print("Animation file completed.")
-                        continue
+                print("No appropriate file list in %s" % (d))
+        # except:
+        #     print("An error has occured while animating.")
 
-                    print("No appropriate file list in %s" % (d))
-        except:
-            print("An error has occured while animaing.")
+    def create_animation_file(self, dirpath, dirname, framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all):
 
-    def create_animation_file(self, dirpath, dirname, framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutpath, info):
-        filename = dirname
+        diroutpath = self.set_sorted_folder(diroutname, filetype)
         files = []
 
         for f in scandir(dirpath):
@@ -138,17 +134,23 @@ class MLAnimator:
         # this is to fix file paths that include Windows styled paths and apostrophes
         files = [self.escape_str(f) for f in files]
 
-        # filename += "." + filetype
+        filename = dirname + "." + filetype
         file_entry = "%s.%s" % (filename, filetype)
         frames_ready = False
         outpath = path.join(diroutpath, file_entry)
         # ask to overwrite before new frames are set
-        if not self.confirm_file_changes(outpath):
-            print("Skipping animation: %s" % outpath)
+        if not all and not self.confirm_file_changes(outpath):
+            print("Didn't confirm: %s" % outpath)
             return
 
+        # sets to max
+        if all:
+            size = len(files)
+            self.set_info(dirname, starting_frame=1, length=size, frames=size)
+            frames_ready = True
+
         # using default settings lets user select frames
-        if not frames and not starting_frame:
+        elif not frames and not starting_frame:
             self.set_info(dirname, length=len(files))
             frames_ready = self.set_frame_amt()
 
@@ -159,12 +161,12 @@ class MLAnimator:
                     frames = len(files) - starting_frame
                 else:
                     frames = len(files)
-
             if not starting_frame:
                 starting_frame = len(files) - frames + 1
 
 
             self.set_info(dirname, int(starting_frame), len(files), int(frames))
+            print(f"frames: {self.frames}, start: {self.starting_frame}")
             frames_ready = self.check_valid_frames()
 
             # if frames didn't validate, ask to manually set
@@ -172,8 +174,6 @@ class MLAnimator:
                 select = input("Set new frame values for %s? (y/n) : " % dirname)
                 if select.strip().lower() in ("y", "yes", ""):
                     frames_ready = self.set_frame_amt()
-
-        print(f"starting on frame: {self.starting_frame}")
 
         # return if user canceled out of setting frames loop
         if not frames_ready:
@@ -187,7 +187,7 @@ class MLAnimator:
             outpath = path.join(diroutpath, filename + "." + filetype)
 
             # ask to overwrite before creating duplicate animation
-            if not self.confirm_file_changes(outpath):
+            if not all and not self.confirm_file_changes(outpath):
                 print("Skipping animation: %s" % self.name)
                 return
 
@@ -195,6 +195,7 @@ class MLAnimator:
 
         starting_frame = self.starting_frame - 1
         end_frame = self.frames + starting_frame
+        print(f"end_frame: {end_frame}")
         file_list = files[starting_frame:end_frame]
         if reverse:
             file_list = [ele for ele in reversed(file_list)]
@@ -212,7 +213,7 @@ class MLAnimator:
         listpath = self.escape_str(path.join(dirpath, "filelisttoanimation.txt"))
 
         print("Animating: %s\nStarting frame: %d\nEnd Frame: %d\nFile List Length: %d\nSaving file to: %s" % (
-            self.name, self.starting_frame, end_frame, self.length, outpath))
+            self.name, self.starting_frame, end_frame, self.frames, outpath))
         outpath = self.escape_str(outpath)
 
         cmdargs = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-r',
@@ -397,6 +398,13 @@ class MLAnimator:
             self.starting_frame = 1
         return True
 
+    def set_sorted_folder(self, diroutname, filetype):
+        diroutpath = path.join(self.animator_output_path, diroutname)
+        if not path.exists(diroutpath):
+            print("Creating sorted folder for " + str(diroutpath))
+            mkdir(diroutpath)
+        return diroutpath
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Make gifs of image lists in directories")
     parser.add_argument("-dir", "--dir", metavar="./dir/path", help="starting directory to check for files")
@@ -408,5 +416,6 @@ if __name__ == "__main__":
     parser.add_argument("-r", "--reverse", action="store_true", help="turn off ffmpeg animation")
     parser.add_argument("-m", "--mirror", action="store_true", help="Turn on mirrored animation (seemless looping, but double filesize)")
     parser.add_argument("-i", "--info", action="store_true", help="add frame info to filename")
+    parser.add_argument("-a", "--all", action="store_true", help="use all frames available in animation")
     args = parser.parse_args()
-    MLAnimator(args.dir, int(args.framerate), args.starting_frame, args.frames, args.filetype, not args.sort_only, args.reverse, args.mirror, args.info)
+    MLAnimator(args.dir, int(args.framerate), args.starting_frame, args.frames, args.filetype, not args.sort_only, args.reverse, args.mirror, args.info, args.all)
