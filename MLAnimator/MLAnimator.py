@@ -67,7 +67,6 @@ class MLAnimator:
                         lastname = checkedname
 
                     if not checkedname:
-                        # self.move_misc_image(dir, f)
                         sorted_folder = False
                         break
 
@@ -77,8 +76,7 @@ class MLAnimator:
                 if animate:
                     diroutname = path.basename(path.dirname(
                         path.dirname(dir))) + "_" + filetype + "_output"
-                    self.create_animation_file(dir, self.get_filename(
-                        files[0]), framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all)
+                    self.create_animation_file(dir, self.get_filename(files[0]), framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all)
                     print("Animation file completed.")
                     return
             if not sorted_folder:
@@ -98,7 +96,6 @@ class MLAnimator:
 
         # Produces a folder of animation files in the main output directory.
         dirs = [f for f in scandir(dir) if f.is_dir() and f.name != "Unsorted_Files"]
-        # try:
         if len(dirs) > 0:
             basename = path.basename(dir)
             if basename == "":
@@ -115,8 +112,6 @@ class MLAnimator:
                     continue
 
                 print("No appropriate file list in %s" % (d))
-        # except:
-        #     print("An error has occured while animating.")
 
     def create_animation_file(self, dirpath, dirname, framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all):
 
@@ -210,7 +205,7 @@ class MLAnimator:
                 for image in reversed_list[:-1]:
                     txtfile.write("file \'" + image + "\'\n")
 
-        listpath = self.escape_str(path.join(dirpath, "filelisttoanimation.txt"))
+        listpath = self.escape_str(filelistpath)
 
         print("Animating: %s\nStarting frame: %d\nEnd Frame: %d\nFile List Length: %d\nSaving file to: %s" % (
             self.name, self.starting_frame, end_frame, self.frames, outpath))
