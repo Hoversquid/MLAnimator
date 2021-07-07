@@ -25,6 +25,8 @@ MLAnimator:     [![MLAnimator CoLab Link](https://camo.githubusercontent.com/84f
  Original VQGAN + CLIP Notebook: [![VQGAN + CLIP CoLab Link](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/1L8oL-vLJXVcRzCFbPwOoMkPKJ8-aYdPN?usp=sharing)
  
  FFMPEG: https://www.ffmpeg.org/
+ 
+ Personal Repo of VQGAN+CLIP (Z-Quantize Method): https://github.com/Hoversquid/VQGAN_CLIP_Z_Quantize
 
 
 
