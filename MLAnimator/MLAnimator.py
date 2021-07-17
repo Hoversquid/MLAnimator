@@ -129,7 +129,7 @@ class MLAnimator:
         # this is to fix file paths that include Windows styled paths and apostrophes
         files = [self.escape_str(f) for f in files]
 
-        filename = dirname + "." + filetype
+        filename = dirname
         file_entry = "%s.%s" % (filename, filetype)
         frames_ready = False
         outpath = path.join(diroutpath, file_entry)
@@ -179,7 +179,7 @@ class MLAnimator:
         if info:
             filename = "%s(sf%d_f%d_fr%d)" % (
                 dirname, self.starting_frame, self.frames, framerate)
-            outpath = path.join(diroutpath, filename + "." + filetype)
+            # outpath = path.join(diroutpath, filename + "." + filetype)
 
             # ask to overwrite before creating duplicate animation
             if not all and not self.confirm_file_changes(outpath):
