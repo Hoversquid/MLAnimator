@@ -218,7 +218,7 @@ class MLAnimator:
         subprocess.call(cmdargs)
 
         if Render_Frame_Text:
-            framesWithTextDir = self.set_valid_filename(diroutpath, filename + "_frameRendered", filetype, 0)
+            framesWithTextDir = self.set_valid_dirname(diroutpath, filename + "_frameTextRendered", 0)
             fontPath = '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf'
             i = 0
             for img_file in files:
@@ -230,7 +230,7 @@ class MLAnimator:
                     i += 1
                     draw = ImageDraw.Draw(img)
                     draw.text((0, img.size[1]/2), txt, (0,0,0), font=font)
-                    img.save(framesWithTextDir, filetype)
+                    img.save(framesWithTextDir, framefiletype)
 
 
     def set_valid_dirname(self, dirs, out, basename, i=0):
