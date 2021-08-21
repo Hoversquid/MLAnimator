@@ -8,7 +8,7 @@
 # Using --info (-i), the frame information will be added to the file name
 
 from os import listdir, mkdir, path, rename, scandir, getcwd
-from os.path import isfile, join
+from os.path import isfile, join, splitext
 import sys
 import subprocess
 import argparse
@@ -126,7 +126,8 @@ class MLAnimator:
                     files.append(path.join(dirpath, f.name))
 
         files = sorted(files, key=lambda f: self.get_file_num(f, len(files)))
-
+        if len(files) > 0:
+            framefiletype = path.splitext(files[0])[1]
         # this is to fix file paths that include Windows styled paths and apostrophes
         files = [self.escape_str(f) for f in files]
 
@@ -215,8 +216,8 @@ class MLAnimator:
         cmdargs = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-r',
                    str(framerate), '-f', 'concat', '-safe', "0", '-i', listpath, outpath]
         subprocess.call(cmdargs)
-        if Render_Frame_Text:
 
+        if Render_Frame_Text:
             framesWithTextDir = self.set_valid_filename(diroutpath, filename + "_frameRendered", filetype, 0)
             fontPath = '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf'
             i = 0
