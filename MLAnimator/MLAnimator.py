@@ -218,7 +218,7 @@ class MLAnimator:
         subprocess.call(cmdargs)
 
         if Render_Frame_Text:
-            dirs = os.listdir(dirpath)
+            dirs = listdir(dirpath)
             # files = [f for f in listdir(final_dir) if isfile(join(final_dir, f))]
 
             framesWithTextDir = self.set_valid_dirname(dirpath, dirs, filename + "_frameTextRendered", 0)
