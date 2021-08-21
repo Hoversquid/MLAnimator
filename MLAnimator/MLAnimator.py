@@ -4,7 +4,7 @@
 # Using --frames (-f <number>), frames are selected from the most recent iterations. Including a starting_frame will select the most recent frames starting with the number of the selected frame.
 # Using --starting_frame (-sf <number>), frames are selected from the selected number as its starting point. this will add the rest of the higher numbered frames, or a number of frames specified by --frames.
 # Using --reverse (-r), animation will be reversed
-# Using --no_mirror (-nm), animation will not include mirrored file list appending (mirrored file list makes the looping animation seemless, but doubles the file size)
+# Using --mirror (-m), animation will include mirrored file list appending (mirrored file list makes the looping animation seemless, but doubles the file size)
 # Using --info (-i), the frame information will be added to the file name
 
 from os import listdir, mkdir, path, rename, scandir, getcwd
@@ -16,7 +16,7 @@ import argparse
 image_file_types = ['png', 'jpg']
 
 class MLAnimator:
-    def __init__(self, dir, framerate, starting_frame, frames, filetype, animate, reverse, mirror_list, info, all):
+    def __init__(self, dir, framerate, starting_frame, frames, filetype, animate, reverse, mirror_list, info, all, Render_Frame_Text=False):
         animator_output_path = path.join(getcwd(), "AnimatorOutput")
 
         if framerate < 1:
@@ -107,13 +107,13 @@ class MLAnimator:
                 # Creates animation file if directory's contents are numbered frames.
                 if len(files) > 2:
                     self.create_animation_file(d.path, d.name, framerate, frames, filetype,
-                                          starting_frame, mirror_list, reverse, diroutname, info, all)
+                                          starting_frame, mirror_list, reverse, diroutname, info, all, Render_Frame_Text)
                     print("Animation file completed.")
                     continue
 
                 print("No appropriate file list in %s" % (d))
 
-    def create_animation_file(self, dirpath, dirname, framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all):
+    def create_animation_file(self, dirpath, dirname, framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all, Render_Frame_Text):
 
         diroutpath = self.set_sorted_folder(diroutname, filetype)
         files = []
@@ -214,6 +214,44 @@ class MLAnimator:
         cmdargs = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-r',
                    str(framerate), '-f', 'concat', '-safe', "0", '-i', listpath, outpath]
         subprocess.call(cmdargs)
+        if Render_Frame_Text:
+
+            framesWithTextDir = self.set_valid_filename(diroutpath, filename + "_frameRendered", filetype, 0)
+            i = 0
+            for img_file in files:
+                with Image.open(img_file) as img:
+                    ImageFont.truetype("resources/HelveticaNeueLight.ttf", 30)
+                    txt = "Frame: " + i
+                    i += 1
+                    draw.text((0, img.size[1]/2), txt, (0,0,0), font=font)
+                    img.save(framesWithTextDir, filetype)
+
+
+    def set_valid_dirname(self, dirs, out, basename, i=0):
+        if i > 0:
+            newname = "%s(%d)" % (basename, i)
+        else:
+            newname = basename
+
+        unique_dir_name = True
+
+        if len(dirs) < 1:
+            new_path = path.join(out, newname)
+            mkdir(new_path)
+            return new_path
+
+        for dir in dirs:
+            if path.basename(dir) == newname:
+                unique_dir_name = False
+                break
+
+        if unique_dir_name:
+            new_path = path.join(out, newname)
+
+            mkdir(new_path)
+            return new_path
+
+        return self.set_valid_dirname(dirs, out, basename, i + 1)
 
     def get_filename(self, filename):
         namestr = filename.split(".")
@@ -412,5 +450,6 @@ if __name__ == "__main__":
     parser.add_argument("-m", "--mirror", action="store_true", help="Turn on mirrored animation (seemless looping, but double filesize)")
     parser.add_argument("-i", "--info", action="store_true", help="add frame info to filename")
     parser.add_argument("-a", "--all", action="store_true", help="use all frames available in animation")
+    parser.add_argument("-rt", "--rendertext", action="store_true", help="create a separate animation of images with frame info rendered on the image")
     args = parser.parse_args()
-    MLAnimator(args.dir, int(args.framerate), args.starting_frame, args.frames, args.filetype, not args.sort_only, args.reverse, args.mirror, args.info, args.all)
+    MLAnimator(args.dir, int(args.framerate), args.starting_frame, args.frames, args.filetype, not args.sort_only, args.reverse, args.mirror, args.info, args.all, Render_Frame_Text=args.rendertext)
