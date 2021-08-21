@@ -223,7 +223,7 @@ class MLAnimator:
             for img_file in files:
                 with Image.open(img_file) as img:
                     ImageFont.truetype(fontPath, 30)
-                    txt = "Frame: " + i
+                    txt = "Frame: " + str(i)
                     i += 1
                     draw.text((0, img.size[1]/2), txt, (0,0,0), font=font)
                     img.save(framesWithTextDir, filetype)
