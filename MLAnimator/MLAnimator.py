@@ -218,10 +218,11 @@ class MLAnimator:
         if Render_Frame_Text:
 
             framesWithTextDir = self.set_valid_filename(diroutpath, filename + "_frameRendered", filetype, 0)
+            fontPath = '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf'
             i = 0
             for img_file in files:
                 with Image.open(img_file) as img:
-                    ImageFont.truetype("arial.ttf", 30)
+                    ImageFont.truetype(fontPath, 30)
                     txt = "Frame: " + i
                     i += 1
                     draw.text((0, img.size[1]/2), txt, (0,0,0), font=font)
