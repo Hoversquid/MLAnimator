@@ -221,7 +221,7 @@ class MLAnimator:
             i = 0
             for img_file in files:
                 with Image.open(img_file) as img:
-                    ImageFont.truetype("resources/HelveticaNeueLight.ttf", 30)
+                    ImageFont.truetype("Pillow/Tests/fonts/FreeMono.ttf", 30)
                     txt = "Frame: " + i
                     i += 1
                     draw.text((0, img.size[1]/2), txt, (0,0,0), font=font)
