@@ -12,7 +12,7 @@ from os.path import isfile, join
 import sys
 import subprocess
 import argparse
-
+from PIL import Image, ImageDraw
 image_file_types = ['png', 'jpg']
 
 class MLAnimator:
