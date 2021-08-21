@@ -221,7 +221,7 @@ class MLAnimator:
             dirs = listdir(dirpath)
             # files = [f for f in listdir(final_dir) if isfile(join(final_dir, f))]
             print("getting framesWithTextDir...")
-            framesWithTextDir = self.set_valid_dirname(dirpath, dirs, filename + "_frameTextRendered", 0)
+            framesWithTextDir = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered", 0)
             print(framesWithTextDir)
             fontPath = '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf'
             i = 0
