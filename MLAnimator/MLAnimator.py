@@ -76,7 +76,7 @@ class MLAnimator:
                 if animate:
                     diroutname = path.basename(path.dirname(
                         path.dirname(dir))) + "_" + filetype + "_output"
-                    self.create_animation_file(dir, self.get_filename(files[0]), framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all)
+                    self.create_animation_file(dir, self.get_filename(files[0]), framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all,Render_Frame_Text)
                     print("Animation file completed.")
                     return
             if not sorted_folder:
