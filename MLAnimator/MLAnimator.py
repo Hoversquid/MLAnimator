@@ -218,17 +218,17 @@ class MLAnimator:
         subprocess.call(cmdargs)
 
         if Render_Frame_Text:
-            dirs = listdir(dirpath)
+            dirs = listdir(diroutpath)
             # files = [f for f in listdir(final_dir) if isfile(join(final_dir, f))]
             print("getting framesWithTextDir...")
-            framesWithTextDir = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered", 0)
+            framesWithTextDir = self.set_valid_dirname(dirs, diroutpath, filename + "_frameTextRendered", 0)
             print("framesWithTextDir: " + framesWithTextDir)
             fontPath = '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf'
             i = 0
             for img_file in files:
                 with Image.open(img_file) as img:
                     # newTxtImg = Image.new("RGB", (150, 100), (255, 255, 255))
-                    newfilename = path.join(framesWithTextDir, "fr_" + filename + filetype)
+                    newfilename = path.join(framesWithTextDir, f"fr_{filename}.{filetype}")
                     print("newfilename: " + newfilename)
                     img = img.convert('RGB')
                     font = ImageFont.truetype(fontPath, 30)
