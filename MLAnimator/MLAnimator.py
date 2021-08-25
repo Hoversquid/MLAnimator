@@ -236,7 +236,7 @@ class MLAnimator:
                     i += 1
                     draw = ImageDraw.Draw(img)
                     draw.text((0, img.size[1]/2), txt, (0,0,0), font=font)
-                    img.save(newfilename, framefiletype)
+                    img.save(newfilename)
 
 
     def set_valid_dirname(self, dirs, out, basename, i=0):
