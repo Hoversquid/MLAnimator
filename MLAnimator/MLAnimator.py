@@ -228,14 +228,15 @@ class MLAnimator:
             for img_file in files:
                 with Image.open(img_file) as img:
                     # newTxtImg = Image.new("RGB", (150, 100), (255, 255, 255))
-                    newfilename = path.join(framesWithTextDir, f"fr_{filename}.{framefiletype}")
+                    # newfilename = path.join(framesWithTextDir, f"fr_{filename}{framefiletype}")
+                    newfilename = self.image_output_path(self, framesWithTextDir)
                     print("newfilename: " + newfilename)
                     img = img.convert('RGB')
                     font = ImageFont.truetype(fontPath, 30)
                     txt = "Frame: " + str(i)
                     i += 1
                     draw = ImageDraw.Draw(img)
-                    draw.text((0, img.size[1]/2), txt, (0,0,0), font=font)
+                    draw.text((img.size[0]/20, 0), txt, (0,0,0), font=font)
                     img.save(newfilename)
 
 
@@ -374,6 +375,22 @@ class MLAnimator:
         except ValueError:
             print("\nValue Error when setting frame amount.\n")
             return False
+
+    def image_output_path(self, output_path, sequence_number=None):
+        """
+        Returns underscore separated Path.
+        A current timestamp is prepended if `self.save_date_time` is set.
+        Sequence number left padded with 6 zeroes is appended if `save_every` is set.
+        :rtype: Path
+        """
+        base = path.basename(output_path)
+        if sequence_number:
+            sequence_number_left_padded = str(sequence_number).zfill(6)
+            newname = f"{base}.{sequence_number_left_padded}"
+        else:
+            newname = base
+        output_path = path.join(output_path, newname)
+        return Path(f"{output_path}.png")
 
     def set_starting_frame(self, max, newframes):
         if not newframes:
