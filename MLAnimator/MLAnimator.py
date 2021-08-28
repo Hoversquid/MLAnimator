@@ -229,7 +229,7 @@ class MLAnimator:
                 with Image.open(img_file) as img:
                     # newTxtImg = Image.new("RGB", (150, 100), (255, 255, 255))
                     # newfilename = path.join(framesWithTextDir, f"fr_{filename}{framefiletype}")
-                    newfilename = self.image_output_path(self, framesWithTextDir)
+                    newfilename = self.image_output_path(framesWithTextDir)
                     print("newfilename: " + newfilename)
                     img = img.convert('RGB')
                     font = ImageFont.truetype(fontPath, 30)
