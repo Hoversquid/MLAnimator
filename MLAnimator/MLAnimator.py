@@ -226,7 +226,7 @@ class MLAnimator:
             print("framesWithTextDir: " + framesWithTextDir)
             fontPath = '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf'
             i = 0
-            for img_file in files:
+            for img_file in file_list:
                 with Image.open(img_file) as img:
                     # newTxtImg = Image.new("RGB", (150, 100), (255, 255, 255))
                     # newfilename = path.join(framesWithTextDir, f"fr_{filename}{framefiletype}")
