@@ -13,6 +13,7 @@ import sys
 import subprocess
 import argparse
 from PIL import Image, ImageDraw, ImageFont
+from pathlib import Path
 
 image_file_types = ['png', 'jpg']
 
