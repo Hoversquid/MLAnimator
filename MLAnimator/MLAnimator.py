@@ -209,7 +209,7 @@ class MLAnimator:
                     txtfile.write("file \'" + image + "\'\n")
 
         listpath = self.escape_str(filelistpath)
-        self.run_FFMPEG(end_frame, output_path)
+        self.run_FFMPEG(end_frame, outpath)
         # print("Animating: %s\nStarting frame: %d\nEnd Frame: %d\nFile List Length: %d\nSaving file to: %s" % (
         #     self.name, self.starting_frame, end_frame, self.frames, outpath))
         # outpathStr = self.escape_str(outpath)
