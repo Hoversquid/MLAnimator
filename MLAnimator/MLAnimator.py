@@ -209,18 +209,17 @@ class MLAnimator:
                     txtfile.write("file \'" + image + "\'\n")
 
         listpath = self.escape_str(filelistpath)
-
-        print("Animating: %s\nStarting frame: %d\nEnd Frame: %d\nFile List Length: %d\nSaving file to: %s" % (
-            self.name, self.starting_frame, end_frame, self.frames, outpath))
-        outpath = self.escape_str(outpath)
-
-        cmdargs = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-r',
-                   str(framerate), '-f', 'concat', '-safe', "0", '-i', listpath, outpath]
-        subprocess.call(cmdargs)
+        self.run_FFMPEG(end_frame, output_path)
+        # print("Animating: %s\nStarting frame: %d\nEnd Frame: %d\nFile List Length: %d\nSaving file to: %s" % (
+        #     self.name, self.starting_frame, end_frame, self.frames, outpath))
+        # outpathStr = self.escape_str(outpath)
+        #
+        # cmdargs = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-r',
+        #            str(framerate), '-f', 'concat', '-safe', "0", '-i', listpath, outpathStr]
+        # subprocess.call(cmdargs)
 
         if Render_Frame_Text:
             dirs = listdir(diroutpath)
-            # files = [f for f in listdir(final_dir) if isfile(join(final_dir, f))]
             print("getting framesWithTextDir...")
             framesWithTextDir = self.set_valid_dirname(dirs, diroutpath, filename + "_frameTextRendered", 0)
             print("framesWithTextDir: " + framesWithTextDir)
@@ -228,8 +227,6 @@ class MLAnimator:
             i = 0
             for img_file in file_list:
                 with Image.open(img_file) as img:
-                    # newTxtImg = Image.new("RGB", (150, 100), (255, 255, 255))
-                    # newfilename = path.join(framesWithTextDir, f"fr_{filename}{framefiletype}")
                     newfilename = self.image_output_path(framesWithTextDir, sequence_number=i)
                     print("newfilename: " + str(newfilename))
                     img = img.convert('RGB')
@@ -240,6 +237,18 @@ class MLAnimator:
                     draw.text((img.size[0]/20, 0), txt, (0,0,0), font=font)
                     img.save(newfilename)
 
+            self.run_FFMPEG(end_frame, framesWithTextDir)
+
+
+
+    def run_FFMPEG(self, end_frame, outpath):
+            print("Animating: %s\nStarting frame: %d\nEnd Frame: %d\nFile List Length: %d\nSaving file to: %s" % (
+                self.name, self.starting_frame, end_frame, self.frames, outpath))
+            outpathStr = self.escape_str(outpath)
+
+            cmdargs = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-r',
+                       str(framerate), '-f', 'concat', '-safe', "0", '-i', listpath, outpathStr]
+            subprocess.call(cmdargs)
 
     def set_valid_dirname(self, dirs, out, basename, i=0):
         if i > 0:
