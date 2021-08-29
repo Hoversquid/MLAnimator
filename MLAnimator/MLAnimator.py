@@ -241,7 +241,7 @@ class MLAnimator:
                     img.save(newfilename)
 
             # self.run_FFMPEG(file_list, dirpath, end_frame, outpath, framerate, listpath, outpathStr)
-            self.run_FFMPEG(file_list, framesWithTextDir, end_frame, framerate, outpathStr, mirror_list)
+            self.run_FFMPEG(file_list, framesWithTextDir, end_frame, framerate, mirror_list)
 
 
     def run_FFMPEG(self, file_list, dirpath, end_frame, outpath, framerate, mirror_list):
