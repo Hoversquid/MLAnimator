@@ -198,18 +198,21 @@ class MLAnimator:
         if reverse:
             file_list = [ele for ele in reversed(file_list)]
 
-        filelistpath = path.join(dirpath, "filelisttoanimation.txt")
-        with open(filelistpath, "w", encoding="utf-8") as txtfile:
-            for image in file_list:
-                txtfile.write("file \'" + image + "\'\n")
+        self.run_FFMPEG(file_list, dirpath, end_frame, outpath, framerate)
 
-            if mirror_list:
-                reversed_list = [ele for ele in reversed(file_list)][1:]
-                for image in reversed_list[:-1]:
-                    txtfile.write("file \'" + image + "\'\n")
+        # filelistpath = path.join(dirpath, "filelisttoanimation.txt")
+        # with open(filelistpath, "w", encoding="utf-8") as txtfile:
+        #     for image in file_list:
+        #         txtfile.write("file \'" + image + "\'\n")
+        #
+        #     if mirror_list:
+        #         reversed_list = [ele for ele in reversed(file_list)][1:]
+        #         for image in reversed_list[:-1]:
+        #             txtfile.write("file \'" + image + "\'\n")
+        #
+        # listpath = self.escape_str(filelistpath)
 
-        listpath = self.escape_str(filelistpath)
-        self.run_FFMPEG(end_frame, file_list, outpath, framerate, listpath, outpathStr)
+
         # print("Animating: %s\nStarting frame: %d\nEnd Frame: %d\nFile List Length: %d\nSaving file to: %s" % (
         #     self.name, self.starting_frame, end_frame, self.frames, outpath))
         # outpathStr = self.escape_str(outpath)
@@ -237,10 +240,11 @@ class MLAnimator:
                     draw.text((img.size[0]/20, 0), txt, (0,0,0), font=font)
                     img.save(newfilename)
 
-            self.run_FFMPEG(end_frame, file_list, framesWithTextDir, framerate, listpath, outpathStr)
+            # self.run_FFMPEG(file_list, dirpath, end_frame, outpath, framerate, listpath, outpathStr)
+            self.run_FFMPEG(file_list, framesWithTextDir, end_frame, framerate, outpathStr)
 
 
-    def run_FFMPEG(self, file_list, dirpath, end_frame, outpath, framerate, listpath, outpathStr)):
+    def run_FFMPEG(self, file_list, dirpath, end_frame, outpath, framerate):
         filelistpath = path.join(dirpath, "filelisttoanimation.txt")
         with open(filelistpath, "w", encoding="utf-8") as txtfile:
             for image in file_list:
