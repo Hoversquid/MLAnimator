@@ -198,7 +198,7 @@ class MLAnimator:
         if reverse:
             file_list = [ele for ele in reversed(file_list)]
 
-        self.run_FFMPEG(file_list, dirpath, end_frame, outpath, framerate)
+        self.run_FFMPEG(file_list, dirpath, end_frame, outpath, framerate, mirror_list)
 
         # filelistpath = path.join(dirpath, "filelisttoanimation.txt")
         # with open(filelistpath, "w", encoding="utf-8") as txtfile:
@@ -241,10 +241,10 @@ class MLAnimator:
                     img.save(newfilename)
 
             # self.run_FFMPEG(file_list, dirpath, end_frame, outpath, framerate, listpath, outpathStr)
-            self.run_FFMPEG(file_list, framesWithTextDir, end_frame, framerate, outpathStr)
+            self.run_FFMPEG(file_list, framesWithTextDir, end_frame, framerate, outpathStr, mirror_list)
 
 
-    def run_FFMPEG(self, file_list, dirpath, end_frame, outpath, framerate):
+    def run_FFMPEG(self, file_list, dirpath, end_frame, outpath, framerate, mirror_list):
         filelistpath = path.join(dirpath, "filelisttoanimation.txt")
         with open(filelistpath, "w", encoding="utf-8") as txtfile:
             for image in file_list:
