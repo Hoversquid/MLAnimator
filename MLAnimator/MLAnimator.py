@@ -209,7 +209,7 @@ class MLAnimator:
                     txtfile.write("file \'" + image + "\'\n")
 
         listpath = self.escape_str(filelistpath)
-        self.run_FFMPEG(end_frame, outpath)
+        self.run_FFMPEG(end_frame, file_list, outpath, framerate, listpath, outpathStr)
         # print("Animating: %s\nStarting frame: %d\nEnd Frame: %d\nFile List Length: %d\nSaving file to: %s" % (
         #     self.name, self.starting_frame, end_frame, self.frames, outpath))
         # outpathStr = self.escape_str(outpath)
@@ -237,18 +237,29 @@ class MLAnimator:
                     draw.text((img.size[0]/20, 0), txt, (0,0,0), font=font)
                     img.save(newfilename)
 
-            self.run_FFMPEG(end_frame, framesWithTextDir)
+            self.run_FFMPEG(end_frame, file_list, framesWithTextDir, framerate, listpath, outpathStr)
 
 
+    def run_FFMPEG(self, file_list, dirpath, end_frame, outpath, framerate, listpath, outpathStr)):
+        filelistpath = path.join(dirpath, "filelisttoanimation.txt")
+        with open(filelistpath, "w", encoding="utf-8") as txtfile:
+            for image in file_list:
+                txtfile.write("file \'" + image + "\'\n")
 
-    def run_FFMPEG(self, end_frame, outpath):
-            print("Animating: %s\nStarting frame: %d\nEnd Frame: %d\nFile List Length: %d\nSaving file to: %s" % (
-                self.name, self.starting_frame, end_frame, self.frames, outpath))
-            outpathStr = self.escape_str(outpath)
+            if mirror_list:
+                reversed_list = [ele for ele in reversed(file_list)][1:]
+                for image in reversed_list[:-1]:
+                    txtfile.write("file \'" + image + "\'\n")
 
-            cmdargs = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-r',
-                       str(framerate), '-f', 'concat', '-safe', "0", '-i', listpath, outpathStr]
-            subprocess.call(cmdargs)
+        listpath = self.escape_str(filelistpath)
+
+        print("Animating: %s\nStarting frame: %d\nEnd Frame: %d\nFile List Length: %d\nSaving file to: %s" % (
+            self.name, self.starting_frame, end_frame, self.frames, outpath))
+        outpathStr = self.escape_str(outpath)
+
+        cmdargs = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-r',
+                   str(framerate), '-f', 'concat', '-safe', "0", '-i', listpath, outpathStr]
+        subprocess.call(cmdargs)
 
     def set_valid_dirname(self, dirs, out, basename, i=0):
         if i > 0:
