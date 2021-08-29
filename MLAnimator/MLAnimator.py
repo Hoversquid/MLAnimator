@@ -240,7 +240,7 @@ class MLAnimator:
                     draw.text((img.size[0]/20, 0), txt, (0,0,0), font=font)
                     img.save(newfilename)
 
-            # self.run_FFMPEG(file_list, dirpath, end_frame, outpath, framerate, listpath, outpathStr)
+            # TODO: Change frame output to Output_directory, change animation output dir 
             self.run_FFMPEG(file_list, framesWithTextDir, end_frame, framerate, mirror_list)
 
 
