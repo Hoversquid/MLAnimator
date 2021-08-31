@@ -137,6 +137,7 @@ class MLAnimator:
         file_entry = "%s.%s" % (filename, filetype)
         frames_ready = False
         outpath = path.join(diroutpath, file_entry)
+
         # ask to overwrite before new frames are set
         if not all and not self.confirm_file_changes(outpath):
             print("Didn't confirm: %s" % outpath)
@@ -205,7 +206,7 @@ class MLAnimator:
         if Render_Frame_Text:
             dirs = listdir(diroutpath)
             print("getting framesWithTextDir...")
-            framesWithTextDir = self.set_valid_dirname(dirs, diroutpath, filename + "_frameTextRendered", 0)
+            framesWithTextDir = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered", 0)
             print("framesWithTextDir: " + framesWithTextDir)
             fontPath = '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf'
             i = 0
@@ -222,7 +223,14 @@ class MLAnimator:
                     img.save(newfilename)
 
             # TODO: Change frame output to Output_directory, change animation output dir
-            self.run_FFMPEG(file_list, framesWithTextDir, end_frame, framerate, mirror_list)
+
+            # dirpath => content/VQGAN_Output
+            # newdirpath = self.set_valid_dirname(dirs, dirpath, )
+
+            newoutpath = self.set_valid_dirname(dirs, diroutpath, filename + "_frameTextRendered", 0)
+            newoutpath = self.set_valid_filename(diroutpath, filename, filetype, 0)
+
+            self.run_FFMPEG(file_list, newoutpath, end_frame, newoutpath, framerate, mirror_list)
 
 
     def run_FFMPEG(self, file_list, dirpath, end_frame, outpath, framerate, mirror_list):
