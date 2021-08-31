@@ -78,7 +78,7 @@ class MLAnimator:
                 if animate:
                     diroutname = path.basename(path.dirname(
                         path.dirname(dir))) + "_" + filetype + "_output"
-                    self.create_animation_file(dir, self.get_filename(files[0]), framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all,Render_Frame_Text)
+                    self.create_animation_file(dirs, dir, self.get_filename(files[0]), framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all,Render_Frame_Text)
                     print("Animation file completed.")
                     return
             if not sorted_folder:
@@ -108,14 +108,14 @@ class MLAnimator:
                     join(d, f.name)) and f.name.split(".")[-1] in image_file_types]
                 # Creates animation file if directory's contents are numbered frames.
                 if len(files) > 2:
-                    self.create_animation_file(d.path, d.name, framerate, frames, filetype,
+                    self.create_animation_file(dirs, d.path, d.name, framerate, frames, filetype,
                                           starting_frame, mirror_list, reverse, diroutname, info, all, Render_Frame_Text)
                     print("Animation file completed.")
                     continue
 
                 print("No appropriate file list in %s" % (d))
 
-    def create_animation_file(self, dirpath, dirname, framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all, Render_Frame_Text):
+    def create_animation_file(self, dirs, dirpath, dirname, framerate, frames, filetype, starting_frame, mirror_list, reverse, diroutname, info, all, Render_Frame_Text):
 
         diroutpath = self.set_sorted_folder(diroutname, filetype)
         files = []
