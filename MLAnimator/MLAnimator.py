@@ -129,6 +129,7 @@ class MLAnimator:
         files = sorted(files, key=lambda f: self.get_file_num(f, len(files)))
         if len(files) > 0:
             framefiletype = path.splitext(files[0])[1]
+
         # this is to fix file paths that include Windows styled paths and apostrophes
         files = [self.escape_str(f) for f in files]
 
@@ -198,28 +199,8 @@ class MLAnimator:
         if reverse:
             file_list = [ele for ele in reversed(file_list)]
 
+        # create animation file for the frames collected from dirpath
         self.run_FFMPEG(file_list, dirpath, end_frame, outpath, framerate, mirror_list)
-
-        # filelistpath = path.join(dirpath, "filelisttoanimation.txt")
-        # with open(filelistpath, "w", encoding="utf-8") as txtfile:
-        #     for image in file_list:
-        #         txtfile.write("file \'" + image + "\'\n")
-        #
-        #     if mirror_list:
-        #         reversed_list = [ele for ele in reversed(file_list)][1:]
-        #         for image in reversed_list[:-1]:
-        #             txtfile.write("file \'" + image + "\'\n")
-        #
-        # listpath = self.escape_str(filelistpath)
-
-
-        # print("Animating: %s\nStarting frame: %d\nEnd Frame: %d\nFile List Length: %d\nSaving file to: %s" % (
-        #     self.name, self.starting_frame, end_frame, self.frames, outpath))
-        # outpathStr = self.escape_str(outpath)
-        #
-        # cmdargs = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-r',
-        #            str(framerate), '-f', 'concat', '-safe', "0", '-i', listpath, outpathStr]
-        # subprocess.call(cmdargs)
 
         if Render_Frame_Text:
             dirs = listdir(diroutpath)
@@ -240,7 +221,7 @@ class MLAnimator:
                     draw.text((img.size[0]/20, 0), txt, (0,0,0), font=font)
                     img.save(newfilename)
 
-            # TODO: Change frame output to Output_directory, change animation output dir 
+            # TODO: Change frame output to Output_directory, change animation output dir
             self.run_FFMPEG(file_list, framesWithTextDir, end_frame, framerate, mirror_list)
 
 
