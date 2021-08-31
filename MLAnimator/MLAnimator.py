@@ -204,9 +204,10 @@ class MLAnimator:
         self.run_FFMPEG(file_list, dirpath, end_frame, outpath, framerate, mirror_list)
 
         if Render_Frame_Text:
-            dirs = listdir(diroutpath)
+            outpathdirs = listdir(diroutpath)
             print("getting framesWithTextDir...")
-            framesWithTextDir = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered", 0)
+            framesWithTextDir = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered")
+            # framesWithTextDir = self.set_valid_dirname(outpathdirs, dirpath, filename + "_frameTextRendered", 0)
             print("framesWithTextDir: " + framesWithTextDir)
             fontPath = '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf'
             i = 0
@@ -227,7 +228,7 @@ class MLAnimator:
             # dirpath => content/VQGAN_Output
             # newdirpath = self.set_valid_dirname(dirs, dirpath, )
 
-            newdirpath = self.set_valid_dirname(dirs, diroutpath, filename + "_frameTextRendered", 0)
+            newdirpath = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered", 0)
             newoutpath = self.set_valid_filename(diroutpath, filename, filetype, 0)
 
             self.run_FFMPEG(file_list, newdirpath, end_frame, newoutpath, framerate, mirror_list)
