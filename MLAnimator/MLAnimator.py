@@ -210,6 +210,7 @@ class MLAnimator:
             print("framesWithTextDir: " + framesWithTextDir)
             fontPath = '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf'
             i = 0
+            new_file_list = []
             for img_file in file_list:
                 with Image.open(img_file) as img:
                     newfilename = self.image_output_path(framesWithTextDir, sequence_number=i)
@@ -221,8 +222,7 @@ class MLAnimator:
                     draw = ImageDraw.Draw(img)
                     draw.text((img.size[0]/20, 0), txt, (0,0,0), font=font)
                     img.save(newfilename)
-
-
+                    new_file_list.append(newfilename)
 
             # TODO: Change frame output to Output_directory, change animation output dir
 
@@ -231,8 +231,8 @@ class MLAnimator:
 
             newdirpath = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered")
             newoutpath = self.set_valid_filename(outpath, filename, filetype)
-
-            self.run_FFMPEG(file_list, newdirpath, end_frame, newoutpath, framerate, mirror_list)
+            newfilelist = listdir()
+            self.run_FFMPEG(new_file_list, framesWithTextDir, end_frame, newoutpath, framerate, mirror_list)
 
 
     def run_FFMPEG(self, file_list, dirpath, end_frame, outpath, framerate, mirror_list):
