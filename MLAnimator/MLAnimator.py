@@ -205,7 +205,7 @@ class MLAnimator:
 
         if Render_Frame_Text:
             outpathdirs = listdir(diroutpath)
-            framesWithTextDir = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered")
+            framesWithTextDir = self.set_valid_dirname(outpathdirs, diroutpath, filename + "_frameTextRendered")
             # framesWithTextDir = self.set_valid_dirname(outpathdirs, dirpath, filename + "_frameTextRendered", 0)
             print("framesWithTextDir: " + framesWithTextDir)
             fontPath = '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf'
@@ -221,6 +221,8 @@ class MLAnimator:
                     draw = ImageDraw.Draw(img)
                     draw.text((img.size[0]/20, 0), txt, (0,0,0), font=font)
                     img.save(newfilename)
+
+
 
             # TODO: Change frame output to Output_directory, change animation output dir
 
