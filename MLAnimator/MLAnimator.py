@@ -229,7 +229,7 @@ class MLAnimator:
             # dirpath => content/VQGAN_Output
             # newdirpath = self.set_valid_dirname(dirs, dirpath, )
 
-            newdirpath = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered")
+            # newdirpath = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered")
             newoutpath = self.set_valid_filename(outpath, filename, filetype)
             newfilelist = listdir()
             self.run_FFMPEG(new_file_list, framesWithTextDir, end_frame, newoutpath, framerate, mirror_list)
