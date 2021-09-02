@@ -222,7 +222,7 @@ class MLAnimator:
                     draw = ImageDraw.Draw(img)
                     draw.text((img.size[0]/20, 0), txt, (0,0,0), font=font)
                     img.save(newfilename)
-                    new_file_list.append(newfilename)
+                    # new_file_list.append(newfilename)
 
             # TODO: Change frame output to Output_directory, change animation output dir
 
@@ -230,8 +230,8 @@ class MLAnimator:
             # newdirpath = self.set_valid_dirname(dirs, dirpath, )
 
             # newdirpath = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered")
+            new_file_list = self.confirm_files(framesWithTextDir)
             newoutpath = self.set_valid_filename(outpath, filename, filetype)
-            newfilelist = listdir()
             self.run_FFMPEG(new_file_list, framesWithTextDir, end_frame, newoutpath, framerate, mirror_list)
 
 
