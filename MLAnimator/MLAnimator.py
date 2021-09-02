@@ -310,7 +310,7 @@ class MLAnimator:
             mkdir(sortedpath)
         rename(unsortedfile, path.join(sortedpath, f))
 
-    def set_valid_filename(self, filepath, basename, filetype, i):
+    def set_valid_filename(self, filepath, basename, filetype, i=0):
         if i > 0:
             newname = "%s(%d)" % (basename, i)
         else:
