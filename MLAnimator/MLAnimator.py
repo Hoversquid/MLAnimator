@@ -208,6 +208,9 @@ class MLAnimator:
             # framesWithTextDir = self.set_valid_dirname(outpathdirs, diroutpath, filename + "_frameTextRendered")
             new_dir_name = filename + "_frameTextRendered"
             frameTextRender_dir = join(self.animator_output_path, new_dir_name)
+            if not path.exists(frameTextRender_dir):
+                mkdir(frameTextRender_dir)
+                
             outpathdirs = listdir(frameTextRender_dir)
             framesWithTextDir = self.set_valid_dirname(outpathdirs, frameTextRender_dir, new_dir_name)
             print("framesWithTextDir: " + framesWithTextDir)
