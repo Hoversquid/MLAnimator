@@ -204,9 +204,12 @@ class MLAnimator:
         self.run_FFMPEG(file_list, dirpath, end_frame, outpath, framerate, mirror_list)
 
         if Render_Frame_Text:
-            outpathdirs = listdir(diroutpath)
-            framesWithTextDir = self.set_valid_dirname(outpathdirs, diroutpath, filename + "_frameTextRendered")
-            # framesWithTextDir = self.set_valid_dirname(outpathdirs, dirpath, filename + "_frameTextRendered", 0)
+            # outpathdirs = listdir(diroutpath)
+            # framesWithTextDir = self.set_valid_dirname(outpathdirs, diroutpath, filename + "_frameTextRendered")
+            new_dir_name = filename + "_frameTextRendered"
+            frameTextRender_dir = join(animator_output_path, new_dir_name)
+            outpathdirs = listdir(frameTextRender_dir)
+            framesWithTextDir = self.set_valid_dirname(outpathdirs, frameTextRender_dir, new_dir_name)
             print("framesWithTextDir: " + framesWithTextDir)
             fontPath = '/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf'
             i = 0
@@ -223,11 +226,6 @@ class MLAnimator:
                     draw.text((img.size[0]/20, 0), txt, (0,0,0), font=font)
                     img.save(newfilename)
                     # new_file_list.append(newfilename)
-
-            # TODO: Change frame output to Output_directory, change animation output dir
-
-            # dirpath => content/VQGAN_Output
-            # newdirpath = self.set_valid_dirname(dirs, dirpath, )
 
             # newdirpath = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered")
             new_file_list = self.confirm_files(framesWithTextDir)
