@@ -231,8 +231,9 @@ class MLAnimator:
                     # new_file_list.append(newfilename)
 
             # newdirpath = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered")
+            new_frame_rendered_filename = f"fr_{filename}"
             new_file_list = self.confirm_files(framesWithTextDir)
-            newoutpath = self.set_valid_filename(outpath, no_info_filename, filetype)
+            newoutpath = self.set_valid_filename(frameTextRender_dir, new_frame_rendered_filename, filetype)
             self.run_FFMPEG(new_file_list, framesWithTextDir, end_frame, newoutpath, framerate, mirror_list)
 
 
