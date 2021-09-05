@@ -133,7 +133,7 @@ class MLAnimator:
         # this is to fix file paths that include Windows styled paths and apostrophes
         files = [self.escape_str(f) for f in files]
 
-        filename = dirname
+        filename = no_info_name = dirname
         file_entry = "%s.%s" % (filename, filetype)
         frames_ready = False
         outpath = path.join(diroutpath, file_entry)
@@ -206,11 +206,11 @@ class MLAnimator:
         if Render_Frame_Text:
             # outpathdirs = listdir(diroutpath)
             # framesWithTextDir = self.set_valid_dirname(outpathdirs, diroutpath, filename + "_frameTextRendered")
-            new_dir_name = filename + "_frameTextRendered"
+            new_dir_name = no_info_name + "_frameTextRendered"
             frameTextRender_dir = join(self.animator_output_path, new_dir_name)
             if not path.exists(frameTextRender_dir):
                 mkdir(frameTextRender_dir)
-                
+
             outpathdirs = listdir(frameTextRender_dir)
             framesWithTextDir = self.set_valid_dirname(outpathdirs, frameTextRender_dir, new_dir_name)
             print("framesWithTextDir: " + framesWithTextDir)
@@ -232,7 +232,7 @@ class MLAnimator:
 
             # newdirpath = self.set_valid_dirname(dirs, dirpath, filename + "_frameTextRendered")
             new_file_list = self.confirm_files(framesWithTextDir)
-            newoutpath = self.set_valid_filename(outpath, filename, filetype)
+            newoutpath = self.set_valid_filename(outpath, no_info_name, filetype)
             self.run_FFMPEG(new_file_list, framesWithTextDir, end_frame, newoutpath, framerate, mirror_list)
 
 
