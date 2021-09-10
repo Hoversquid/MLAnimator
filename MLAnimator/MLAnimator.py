@@ -248,13 +248,13 @@ class MLAnimator:
                 for image in reversed_list[:-1]:
                     txtfile.write("file \'" + image + "\'\n")
 
-        listpath = filelistpath
-        # listpath = self.escape_str(filelistpath)
+        # listpath = filelistpath
+        listpath = self.escape_str(filelistpath)
 
         print("Animating: %s\nStarting frame: %d\nEnd Frame: %d\nFile List Length: %d\nSaving file to: %s" % (
             self.name, self.starting_frame, end_frame, self.frames, outpath))
-        outpathStr = outpath
-        # outpathStr = self.escape_str(outpath)
+        # outpathStr = outpath
+        outpathStr = self.escape_str(outpath)
 
         cmdargs = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-r',
                    str(framerate), '-f', 'concat', '-safe', "0", '-i', listpath, outpathStr]
