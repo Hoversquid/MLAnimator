@@ -131,7 +131,7 @@ class MLAnimator:
             framefiletype = path.splitext(files[0])[1]
 
         # this is to fix file paths that include Windows styled paths and apostrophes
-        files = [self.escape_str(f) for f in files]
+        # files = [self.escape_str(f) for f in files]
 
         filename = no_info_filename = dirname
         file_entry = "%s.%s" % (filename, filetype)
