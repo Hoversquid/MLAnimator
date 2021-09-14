@@ -6,15 +6,13 @@
 
 ## Google Colab notebooks to try for yourself:
  
-VQGAN + CLIP w/ MLAnimator: [![VQGAN + CLIP + MLAnimator CoLab Link](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/1RH4lsN46JEscz9RE9Y_BsTa9kPmJjRZA?usp=sharing)
+VQGAN + CLIP w/ MLAnimator: [![VQGAN + CLIP + MLAnimator CoLab Link](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/1djy-WUawvcetuAqWfoEOsPRz_FrpKsCd)
  
 deep-daze w/ MLAnimator:   [![DeepDaze + MLAnimator CoLab Link](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/12EU4iVue3I91Pfqo5hc0-gXOtc81e3kK?usp=sharing)
 
 big-sleep w/ MLAnimator:    [![BigSleep + MLAnimator CoLab Link](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/1oDYS2vJcuYfsqlqQvYkBf5lxxj6CKRvC?usp=sharing)
 
 MLAnimator:     [![MLAnimator CoLab Link](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/1wS7SgGWqEYG0r9tXcJS3QRSntz5yBmbV?usp=sharing)
-
-VQGAN + CLIP Sandbox notebook (soon to be merged): [![VQGAN+CLIP Sandbox](https://camo.githubusercontent.com/84f0493939e0c4de4e6dbe113251b4bfb5353e57134ffd9fcab6b8714514d4d1/68747470733a2f2f636f6c61622e72657365617263682e676f6f676c652e636f6d2f6173736574732f636f6c61622d62616467652e737667)](https://colab.research.google.com/drive/1nvT7zTZFTB46Zq5mKjv7L5pqkv1wGrA8?usp=sharing)
 
 ## Source Repos and Downloads:
 
